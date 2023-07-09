@@ -1,6 +1,7 @@
 # build front-end
 FROM node:lts-alpine AS frontend
 
+
 RUN npm install pnpm -g
 
 WORKDIR /app
@@ -51,6 +52,9 @@ COPY --from=frontend /app/dist /app/public
 
 COPY --from=backend /app/build /app/build
 
-EXPOSE 3002
+EXPOSE 9000
+
+ENV OPENAI_API_MODEL=gpt-3.5-turbo-16k-0613
+ENV OPENAI_API_KEY=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
 
 CMD ["pnpm", "run", "prod"]

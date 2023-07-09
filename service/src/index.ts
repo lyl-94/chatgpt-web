@@ -21,6 +21,7 @@ app.all('*', (_, res, next) => {
 
 router.post('/chat-process', [auth, limiter], async (req, res) => {
   res.setHeader('Content-type', 'application/octet-stream')
+  res.setHeader('Transfer-Encoding', 'chunked')
 
   try {
     const { prompt, options = {}, systemMessage, temperature, top_p } = req.body as RequestProps
@@ -86,4 +87,4 @@ app.use('', router)
 app.use('/api', router)
 app.set('trust proxy', 1)
 
-app.listen(3002, () => globalThis.console.log('Server is running on port 3002'))
+app.listen(9000, () => globalThis.console.log('Server is running on port 9000'))
